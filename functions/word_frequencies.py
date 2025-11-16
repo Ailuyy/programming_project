@@ -5,5 +5,5 @@ def word_frequencies(sentence: str) -> dict:
     for word in words:
         cleaned_word = re.sub('\W+', '', word)
         if cleaned_word:
-            freq[word] = freq.get(cleaned_word, 0) + 1
+            freq[cleaned_word] = freq.get(cleaned_word, 0) + 1
     return freq
