@@ -12,7 +12,7 @@ def get_movies_from_csv(csv_path: Path) -> List[Movie]:
             movie = Movie(
                 movieId=int(row["movieId"]),
                 title=row["title"],
-                genres=row["genres"].split('|')
+                genres=row["genres"]
             )
             movies.append(movie)
     return movies

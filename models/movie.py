@@ -2,6 +2,9 @@ from pydantic import BaseModel, Field
 from typing import List
 
 class Movie(BaseModel):
-    movieId: int = Field(..., gt=0)
+    id: int = Field(alias='movieId', gt=0)
     title: str = Field(..., min_length=1)
-    genres: List[str] = []
+    genres: str = Field(..., min_length=1)
+
+    class Config:
+        populate_by_name = True
