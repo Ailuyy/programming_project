@@ -1,8 +1,7 @@
 from pydantic import BaseModel, Field
-from typing import List
 
 class Movie(BaseModel):
-    id: int = Field(alias='movieId', gt=0)
+    id: str = Field(alias='movieId', min_length=1)
     title: str = Field(..., min_length=1)
     genres: str = Field(..., min_length=1)
 

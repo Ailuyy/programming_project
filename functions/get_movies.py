@@ -10,7 +10,7 @@ def get_movies_from_csv(csv_path: Path) -> List[Movie]:
         reader = csv.DictReader(f)
         for row in reader:
             movie = Movie(
-                movieId=int(row["movieId"]),
+                movieId=row["movieId"],
                 title=row["title"],
                 genres=row["genres"]
             )
