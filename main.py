@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-from core.config import CSV_FILE_MOVIES, CSV_FILE_LINKS
+from core.config import CSV_FILE_MOVIES, CSV_FILE_LINKS, CSV_FILE_RATINGS
 from functions.get_movies import get_movies_from_csv
 from functions.get_links import get_links_from_csv
+from functions.get_ratings import get_ratings_from_csv
 app = FastAPI()
 
 @app.get("/")
@@ -17,3 +18,8 @@ def get_movies():
 def get_links():
     links = get_links_from_csv(CSV_FILE_LINKS)
     return [link.__dict__ for link in links]
+
+@app.get("/ratings")
+def get_ratings():
+    ratings = get_ratings_from_csv(CSV_FILE_RATINGS)
+    return [rating.__dict__ for rating in ratings]
