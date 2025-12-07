@@ -1,9 +1,6 @@
-from fastapi import FastAPI
-from core.config import CSV_FILE_MOVIES, CSV_FILE_LINKS, CSV_FILE_RATINGS, CSV_FILE_TAGS
-from functions.get_movies import get_movies_from_csv
-from functions.get_links import get_links_from_csv
-from functions.get_ratings import get_ratings_from_csv
-from functions.get_tags import get_tags_from_csv
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from database.database import get_db, Movie, Link, Rating, Tag
 app = FastAPI()
 
 @app.get("/")
@@ -11,21 +8,17 @@ def read_root():
     return {"Hello": "World"}
 
 @app.get("/movies")
-def get_movies():
-    movies = get_movies_from_csv(CSV_FILE_MOVIES)
-    return [movie.__dict__ for movie in movies]
+def get_movies(db: Session = Depends(get_db)):
+    return db.query(Movie).all()
 
 @app.get("/links")
-def get_links():
-    links = get_links_from_csv(CSV_FILE_LINKS)
-    return [link.__dict__ for link in links]
+def get_links(db: Session = Depends(get_db)):
+    return db.query(Link).all()
 
 @app.get("/ratings")
-def get_ratings():
-    ratings = get_ratings_from_csv(CSV_FILE_RATINGS)
-    return [rating.__dict__ for rating in ratings]
+def get_ratings(db: Session = Depends(get_db)):
+    return db.query(Rating).all()
 
 @app.get("/tags")
-def get_tags():
-    tags = get_tags_from_csv(CSV_FILE_TAGS)
-    return [tag.__dict__ for tag in tags]
+def get_tags(db: Session = Depends(get_db)):
+    return db.query(Tag).all()
